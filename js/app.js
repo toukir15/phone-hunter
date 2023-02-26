@@ -1,17 +1,28 @@
 // load search phone data 
-const loadPhoneData = async (phoneName) => {
+const loadPhoneData = async (phoneName, dataLimit) => {
     const URL = `https://openapi.programming-hero.com/api/phones?search=${phoneName}`;
     console.log(URL);
     const res = await fetch(URL)
     const data = await res.json();
-    displayPhoneData(data.data);
+    displayPhoneData(data.data, dataLimit);
 }
 
 // display search phone data 
-const displayPhoneData = phones => {
+const displayPhoneData = (phones, dataLimit) => {
     // clear search input
     const searchInputValue = document.getElementById('search__input');
     searchInputValue.value = '';
+
+    // max show phone 
+    const showAll = document.getElementById('show__all__btn')
+    if (dataLimit && phones.length > 9) {
+        phones = phones.slice(0, 9);
+        showAll.classList.remove('d-none');
+    }
+    else {
+        showAll.classList.add('d-none');
+    }
+
 
     const phoneContainer = document.getElementById('phone__container')
 
@@ -24,8 +35,6 @@ const displayPhoneData = phones => {
         errorMessage.classList.add('d-none')
     }
 
-    // max show phone 
-    phones = phones.slice(0, 10);
 
     // clear previous data 
     phoneContainer.innerText = '';
@@ -51,15 +60,19 @@ const displayPhoneData = phones => {
     toggleLoader(false)
 }
 
-// add event handler search btn 
-document.getElementById('search__btn').addEventListener('click', function () {
+const processSearch = (dataLimit) => {
     // start loader
     toggleLoader(true)
 
     const searchInput = document.getElementById('search__input');
     const searchInputValue = searchInput.value;
-    console.log(searchInputValue);
-    loadPhoneData(searchInputValue);
+    // console.log(searchInputValue);
+    loadPhoneData(searchInputValue, dataLimit);
+}
+
+// add event handler search btn 
+document.getElementById('search__btn').addEventListener('click', function () {
+    processSearch(10);
 })
 
 
@@ -72,3 +85,8 @@ const toggleLoader = isLoading => {
         loaderSection.classList.add('d-none')
     }
 }
+
+// display all data 
+document.getElementById('show__all__btn').addEventListener('click', function () {
+    processSearch();
+})
