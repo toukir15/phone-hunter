@@ -47,12 +47,28 @@ const displayPhoneData = phones => {
         `
         phoneContainer.appendChild(phoneDiv)
     })
+    // stop loader
+    toggleLoader(false)
 }
 
 // add event handler search btn 
 document.getElementById('search__btn').addEventListener('click', function () {
+    // start loader
+    toggleLoader(true)
+
     const searchInput = document.getElementById('search__input');
     const searchInputValue = searchInput.value;
     console.log(searchInputValue);
     loadPhoneData(searchInputValue);
 })
+
+
+const toggleLoader = isLoading => {
+    const loaderSection = document.getElementById('loader');
+    if (isLoading) {
+        loaderSection.classList.remove('d-none')
+    }
+    else {
+        loaderSection.classList.add('d-none')
+    }
+}

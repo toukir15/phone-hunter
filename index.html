@@ -12,6 +12,12 @@
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
       crossorigin="anonymous"
     />
+    <style>
+      .spinner {
+        height: 500px;
+        width: 100%;
+      }
+    </style>
   </head>
   <body>
     <!-- header section start  -->
@@ -45,6 +51,20 @@
           <h3 id="error__message" class="text-danger d-none">
             Result not found.
           </h3>
+        </div>
+      </section>
+
+      <!-- loader section  -->
+      <section
+        height="500px"
+        width="100%"
+        id="loader"
+        class="spinner d-flex align-items-center justify-content-center d-none"
+      >
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
         </div>
       </section>
     </main>
