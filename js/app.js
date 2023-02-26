@@ -9,7 +9,25 @@ const loadPhoneData = async (phoneName) => {
 
 // display search phone data 
 const displayPhoneData = phones => {
+    // clear search input
+    const searchInputValue = document.getElementById('search__input');
+    searchInputValue.value = '';
+
     const phoneContainer = document.getElementById('phone__container')
+
+    // not found message 
+    const errorMessage = document.getElementById('error__message');
+    if (phones.length === 0) {
+        errorMessage.classList.remove('d-none')
+    }
+    else {
+        errorMessage.classList.add('d-none')
+    }
+
+    // max show phone 
+    phones = phones.slice(0, 10);
+
+    // clear previous data 
     phoneContainer.innerText = '';
     phones.forEach(phone => {
         console.log(phone);
